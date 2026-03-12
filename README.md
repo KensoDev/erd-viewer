@@ -17,14 +17,14 @@ Connects to PostgreSQL, introspects the schema, renders an interactive D3.js dia
 go install github.com/kensodev/erd-viewer/cmd/erd-viewer@latest
 
 # Run
-erd-viewer --username postgres --db mydb
+erd-viewer -username postgres -db mydb
 
 # Demo with Docker
 docker compose up --build
 # Open http://localhost:3000
 ```
 
-Flags: `--host`, `--port`, `--username`, `--db`, `--schema`, `--exclude`, `--title`, `--listen`
+Flags: `-host`, `-port`, `-username`, `-db`, `-schema`, `-exclude`, `-title`, `-listen`
 
 ## License
 

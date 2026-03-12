@@ -34,4 +34,4 @@ COPY --from=builder /build/erd-viewer .
 
 EXPOSE 8080
 
-ENTRYPOINT ["/app/erd-viewer"]
+CMD ["/app/erd-viewer"]

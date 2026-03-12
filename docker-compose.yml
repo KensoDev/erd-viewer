@@ -26,11 +26,4 @@ services:
         condition: service_healthy
     environment:
       - PGPASSWORD=demo
-    command: >
-      /app/erd-viewer
-      --host postgres
-      --port 5432
-      --username demo
-      --db northwind
-      --schema public
-      --listen 0.0.0.0:3000
+    command: ["/app/erd-viewer", "-host", "postgres", "-port", "5432", "-username", "demo", "-db", "northwind", "-schema", "public", "-listen", "0.0.0.0:3000"]
