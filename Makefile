@@ -30,7 +30,7 @@ build:
 ## test: Run tests
 test:
 	@echo "Running tests..."
-	$(GOTEST) -v -race -coverprofile=coverage.txt -covermode=atomic ./...
+	$(GOTEST) -v -race ./...
 
 ## test-integration: Run integration tests (requires TEST_DATABASE_URL)
 test-integration:
@@ -77,8 +77,9 @@ deps:
 	$(GOMOD) tidy
 
 ## coverage: Generate coverage report
-coverage: test
-	@echo "Opening coverage report..."
+coverage:
+	@echo "Generating coverage report..."
+	$(GOTEST) -coverprofile=coverage.txt ./...
 	$(GOCMD) tool cover -html=coverage.txt
 
 ## help: Show this help message
