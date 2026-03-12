@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="logo.svg" alt="ERD Viewer" width="200"/>
+</div>
+
 # ERD Viewer
 
 Point it at your Postgres database, get an interactive diagram in your browser. Drag tables around, hover to see relationships, search to filter.
