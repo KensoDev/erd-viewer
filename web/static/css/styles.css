@@ -1,0 +1,183 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: system-ui, sans-serif;
+  overflow: hidden;
+}
+
+#toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: #1e293b;
+  border-bottom: 1px solid #334155;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  z-index: 10;
+}
+
+#toolbar h1 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #f8fafc;
+  flex: 1;
+}
+
+#toolbar button {
+  background: #334155;
+  border: none;
+  color: #cbd5e1;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+#toolbar button:hover {
+  background: #475569;
+}
+
+#search {
+  background: #334155;
+  border: 1px solid #475569;
+  color: #e2e8f0;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  width: 180px;
+  outline: none;
+}
+
+#search:focus {
+  border-color: #3b82f6;
+}
+
+svg {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+
+.table-node {
+  cursor: grab;
+}
+
+.table-node:active {
+  cursor: grabbing;
+}
+
+.tbl-header {
+  fill: #3b82f6;
+  rx: 4;
+}
+
+.tbl-header-text {
+  fill: white;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: system-ui, sans-serif;
+}
+
+.tbl-body {
+  fill: #1e293b;
+  stroke: #334155;
+  stroke-width: 1;
+}
+
+.col-row-pk {
+  fill: #fef9c3;
+}
+
+.col-row {
+  fill: #1e293b;
+}
+
+.col-row:nth-child(odd) {
+  fill: #243044;
+}
+
+.col-name {
+  font-size: 11px;
+  font-family: monospace;
+  fill: #e2e8f0;
+}
+
+.col-name-pk {
+  font-size: 11px;
+  font-family: monospace;
+  fill: #92400e;
+  font-weight: 700;
+}
+
+.col-type {
+  font-size: 10px;
+  font-family: monospace;
+  fill: #64748b;
+}
+
+.fk-line {
+  stroke: #3b82f6;
+  stroke-width: 1.5;
+  fill: none;
+  opacity: 0.6;
+}
+
+.fk-line.highlighted {
+  stroke: #f59e0b;
+  stroke-width: 2.5;
+  opacity: 1;
+}
+
+.table-node.dimmed {
+  opacity: 0.25;
+}
+
+.table-node.highlighted .tbl-header {
+  fill: #1d4ed8;
+}
+
+.fk-label {
+  font-size: 10px;
+  font-family: monospace;
+  fill: #94a3b8;
+  pointer-events: none;
+}
+
+#tooltip {
+  position: fixed;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  max-width: 260px;
+  z-index: 20;
+}
+
+#tooltip .tt-title {
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 6px;
+}
+
+#tooltip .tt-row {
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+#tooltip .tt-pk {
+  color: #f59e0b;
+}

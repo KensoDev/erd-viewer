@@ -1,0 +1,93 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="95" fill="#0f172a" stroke="#3b82f6" stroke-width="3"/>
+
+  <!-- Database tables representation -->
+  <!-- Left table -->
+  <g transform="translate(30, 55)">
+    <rect width="35" height="12" fill="#3b82f6" rx="2"/>
+    <rect y="12" width="35" height="28" fill="#1e293b" stroke="#475569" stroke-width="1" rx="2"/>
+    <!-- Columns (lines) -->
+    <line x1="5" y1="18" x2="30" y2="18" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="5" y1="24" x2="30" y2="24" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="5" y1="30" x2="30" y2="30" stroke="#64748b" stroke-width="1.5"/>
+    <!-- PK indicator -->
+    <circle cx="8" cy="18" r="2" fill="#fbbf24"/>
+  </g>
+
+  <!-- Center table -->
+  <g transform="translate(82, 40)">
+    <rect width="36" height="12" fill="#3b82f6" rx="2"/>
+    <rect y="12" width="36" height="38" fill="#1e293b" stroke="#475569" stroke-width="1" rx="2"/>
+    <!-- Columns (lines) -->
+    <line x1="5" y1="18" x2="31" y2="18" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="5" y1="24" x2="31" y2="24" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="5" y1="30" x2="31" y2="30" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="5" y1="36" x2="31" y2="36" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="5" y1="42" x2="31" y2="42" stroke="#64748b" stroke-width="1.5"/>
+    <!-- PK indicator -->
+    <circle cx="8" cy="18" r="2" fill="#fbbf24"/>
+  </g>
+
+  <!-- Right table -->
+  <g transform="translate(135, 60)">
+    <rect width="35" height="12" fill="#3b82f6" rx="2"/>
+    <rect y="12" width="35" height="23" fill="#1e293b" stroke="#475569" stroke-width="1" rx="2"/>
+    <!-- Columns (lines) -->
+    <line x1="5" y1="18" x2="30" y2="18" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="5" y1="24" x2="30" y2="24" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="5" y1="30" x2="30" y2="30" stroke="#64748b" stroke-width="1.5"/>
+    <!-- PK indicator -->
+    <circle cx="8" cy="18" r="2" fill="#fbbf24"/>
+  </g>
+
+  <!-- Bottom left table -->
+  <g transform="translate(35, 115)">
+    <rect width="30" height="12" fill="#3b82f6" rx="2"/>
+    <rect y="12" width="30" height="23" fill="#1e293b" stroke="#475569" stroke-width="1" rx="2"/>
+    <!-- Columns (lines) -->
+    <line x1="4" y1="18" x2="26" y2="18" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="4" y1="24" x2="26" y2="24" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="4" y1="30" x2="26" y2="30" stroke="#64748b" stroke-width="1.5"/>
+    <!-- PK indicator -->
+    <circle cx="7" cy="18" r="2" fill="#fbbf24"/>
+  </g>
+
+  <!-- Bottom right table -->
+  <g transform="translate(135, 115)">
+    <rect width="30" height="12" fill="#3b82f6" rx="2"/>
+    <rect y="12" width="30" height="28" fill="#1e293b" stroke="#475569" stroke-width="1" rx="2"/>
+    <!-- Columns (lines) -->
+    <line x1="4" y1="18" x2="26" y2="18" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="4" y1="24" x2="26" y2="24" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="4" y1="30" x2="26" y2="30" stroke="#64748b" stroke-width="1.5"/>
+    <line x1="4" y1="36" x2="26" y2="36" stroke="#64748b" stroke-width="1.5"/>
+    <!-- PK indicator -->
+    <circle cx="7" cy="18" r="2" fill="#fbbf24"/>
+  </g>
+
+  <!-- Relationship lines (foreign keys) -->
+  <!-- Left to center -->
+  <path d="M 65 70 Q 75 65, 82 64" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.7"/>
+  <polygon points="82,64 79,62 79,66" fill="#3b82f6"/>
+
+  <!-- Center to right -->
+  <path d="M 118 65 Q 127 68, 135 72" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.7"/>
+  <polygon points="135,72 132,70 132,74" fill="#3b82f6"/>
+
+  <!-- Center to bottom left -->
+  <path d="M 90 78 Q 75 100, 60 115" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.7"/>
+  <polygon points="60,115 63,113 59,112" fill="#3b82f6"/>
+
+  <!-- Right to bottom right -->
+  <path d="M 152 83 Q 152 100, 150 115" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.7"/>
+  <polygon points="150,115 152,112 148,112" fill="#3b82f6"/>
+
+  <!-- Center to bottom right -->
+  <path d="M 108 78 Q 120 100, 138 115" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.7"/>
+  <polygon points="138,115 135,113 136,117" fill="#3b82f6"/>
+
+  <!-- Text label -->
+  <text x="100" y="175" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="#3b82f6" text-anchor="middle">ERD</text>
+  <text x="100" y="192" font-family="system-ui, sans-serif" font-size="12" font-weight="500" fill="#64748b" text-anchor="middle">VIEWER</text>
+</svg>
