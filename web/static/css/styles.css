@@ -47,6 +47,34 @@ body {
   background: #475569;
 }
 
+#toolbar .export-btn {
+  background: #3b82f6;
+  color: white;
+  font-weight: 600;
+}
+
+#toolbar .export-btn:hover {
+  background: #2563eb;
+}
+
+#toolbar .export-btn:disabled {
+  background: #334155;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+#toolbar .divider {
+  width: 1px;
+  height: 24px;
+  background: #475569;
+}
+
+#toolbar #selection-count {
+  font-size: 12px;
+  color: #94a3b8;
+  padding: 0 4px;
+}
+
 #search {
   background: #334155;
   border: 1px solid #475569;
@@ -144,6 +172,15 @@ svg {
 
 .table-node.highlighted .tbl-header {
   fill: #1d4ed8;
+}
+
+.table-node.selected .tbl-body {
+  stroke: #10b981;
+  stroke-width: 3;
+}
+
+.table-node.selected .tbl-header {
+  fill: #059669;
 }
 
 .fk-label {

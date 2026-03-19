@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/kensodev/erd-viewer/internal/db"
+	"github.com/kensodev/erd-viewer/internal/export"
 	"github.com/kensodev/erd-viewer/web"
 )
 
@@ -44,6 +45,10 @@ func (s *Server) Start() error {
 
 	// API endpoint for schema data
 	mux.HandleFunc("/schema", s.handleSchema)
+
+	// Export endpoints
+	mux.HandleFunc("/export/drawio", s.handleExportDrawio)
+	mux.HandleFunc("/export/plantuml", s.handleExportPlantUML)
 
 	// Serve static assets
 	mux.HandleFunc("/static/", s.handleStatic)
@@ -91,4 +96,56 @@ func (s *Server) handleStatic(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", contentType)
 	w.Write(data)
+}
+
+type exportRequest struct {
+	Tables []string `json:"tables"`
+}
+
+func (s *Server) handleExportDrawio(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	var req exportRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+
+	exporter := export.NewDrawioExporter()
+	output, err := exporter.Export(s.schemaData, req.Tables)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Export failed: %v", err), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/xml")
+	w.Header().Set("Content-Disposition", "attachment; filename=\"schema.drawio.xml\"")
+	w.Write([]byte(output))
+}
+
+func (s *Server) handleExportPlantUML(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	var req exportRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+
+	exporter := export.NewPlantUMLExporter()
+	output, err := exporter.Export(s.schemaData, req.Tables)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Export failed: %v", err), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "text/plain")
+	w.Header().Set("Content-Disposition", "attachment; filename=\"schema.puml\"")
+	w.Write([]byte(output))
 }

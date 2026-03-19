@@ -1,5 +1,8 @@
 const COL_H = 24, HDR_H = 32, PAD = 12, MIN_W = 200;
 
+// Selection state
+const selectedTables = new Set();
+
 async function main() {
   const schema = await fetch('/schema').then(r => r.json());
   document.getElementById('title').textContent = schema.title;
@@ -77,6 +80,14 @@ async function main() {
   // ── Draw nodes ────────────────────────────────────────────────────────────
   const tooltip = document.getElementById('tooltip');
 
+  function updateSelectionUI() {
+    document.getElementById('selection-count').textContent = `${selectedTables.size} selected`;
+    const hasSelection = selectedTables.size > 0;
+    document.getElementById('btn-export-drawio').disabled = !hasSelection;
+    document.getElementById('btn-export-plantuml').disabled = !hasSelection;
+    nodes.classed('selected', t => selectedTables.has(t.name));
+  }
+
   const nodes = nGroup.selectAll('g.table-node')
     .data(schema.tables).enter()
     .append('g').attr('class', 'table-node')
@@ -90,6 +101,15 @@ async function main() {
         refreshEdges();
       })
     )
+    .on('click', function(event, t) {
+      if (event.defaultPrevented) return; // Don't select while dragging
+      if (selectedTables.has(t.name)) {
+        selectedTables.delete(t.name);
+      } else {
+        selectedTables.add(t.name);
+      }
+      updateSelectionUI();
+    })
     .on('mouseover', function(event, t) {
       const m = tableMap[t.name];
       // Highlight connected edges + nodes
@@ -175,6 +195,52 @@ async function main() {
     nodes.classed('dimmed', t => !t.name.toLowerCase().includes(q));
   });
 
+  // Selection controls
+  document.getElementById('btn-select-all').addEventListener('click', () => {
+    schema.tables.forEach(t => selectedTables.add(t.name));
+    updateSelectionUI();
+  });
+
+  document.getElementById('btn-select-none').addEventListener('click', () => {
+    selectedTables.clear();
+    updateSelectionUI();
+  });
+
+  // Export functions
+  async function exportTo(format) {
+    const tables = Array.from(selectedTables);
+    const endpoint = format === 'drawio' ? '/export/drawio' : '/export/plantuml';
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tables })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Export failed: ${response.statusText}`);
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = format === 'drawio' ? 'schema.drawio.xml' : 'schema.puml';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      alert(`Export failed: ${err.message}`);
+    }
+  }
+
+  document.getElementById('btn-export-drawio').addEventListener('click', () => exportTo('drawio'));
+  document.getElementById('btn-export-plantuml').addEventListener('click', () => exportTo('plantuml'));
+
+  // Initialize UI
+  updateSelectionUI();
   fitView();
 }
 
