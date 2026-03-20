@@ -9,7 +9,7 @@ import (
 	"github.com/jackc/pgx/v5"
 	"github.com/kensodev/erd-viewer/pkg/erd"
 	"github.com/kensodev/erd-viewer/pkg/erd/postgres"
-	"github.com/kensodev/erd-viewer/pkg/webview"
+	// "github.com/kensodev/erd-viewer/pkg/webview" // Uncomment for Example 3
 )
 
 // CustomAssets demonstrates how to provide your own web assets
