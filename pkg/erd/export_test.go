@@ -1,22 +1,17 @@
-package export
+package erd
 
 import (
 	"strings"
 	"testing"
-
-	"github.com/kensodev/erd-viewer/pkg/erd"
 )
 
-// This test file is deprecated. Tests have been moved to pkg/erd/export_test.go
-// These are kept for backward compatibility.
-
-func getTestSchema() *erd.SchemaData {
-	return &erd.SchemaData{
+func getTestSchema() *SchemaData {
+	return &SchemaData{
 		Title: "Test Schema",
-		Tables: []erd.Table{
+		Tables: []Table{
 			{
 				Name: "users",
-				Columns: []erd.Column{
+				Columns: []Column{
 					{Name: "id", Type: "integer", Nullable: false, IsPK: true},
 					{Name: "email", Type: "varchar", Nullable: false, IsPK: false},
 					{Name: "name", Type: "varchar", Nullable: true, IsPK: false},
@@ -24,7 +19,7 @@ func getTestSchema() *erd.SchemaData {
 			},
 			{
 				Name: "posts",
-				Columns: []erd.Column{
+				Columns: []Column{
 					{Name: "id", Type: "integer", Nullable: false, IsPK: true},
 					{Name: "user_id", Type: "integer", Nullable: false, IsPK: false},
 					{Name: "title", Type: "varchar", Nullable: false, IsPK: false},
@@ -32,7 +27,7 @@ func getTestSchema() *erd.SchemaData {
 				},
 			},
 		},
-		FKs: []erd.ForeignKey{
+		FKs: []ForeignKey{
 			{
 				FromTable: "posts",
 				FromCol:   "user_id",
@@ -180,7 +175,7 @@ func TestPlantUMLExporter_SanitizeIdentifier(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.input, func(t *testing.T) {
-			result := erd.SanitizeIdentifier(tt.input)
+			result := SanitizeIdentifier(tt.input)
 			if result != tt.expected {
 				t.Errorf("SanitizeIdentifier(%q) = %q, want %q", tt.input, result, tt.expected)
 			}
@@ -202,7 +197,7 @@ func TestDrawioExporter_EscapeHTML(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.input, func(t *testing.T) {
-			result := erd.EscapeHTML(tt.input)
+			result := EscapeHTML(tt.input)
 			if result != tt.expected {
 				t.Errorf("EscapeHTML(%q) = %q, want %q", tt.input, result, tt.expected)
 			}

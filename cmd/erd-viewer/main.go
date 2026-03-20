@@ -11,8 +11,9 @@ import (
 	"github.com/jackc/pgx/v5"
 	"golang.org/x/term"
 
-	"github.com/kensodev/erd-viewer/internal/db"
-	"github.com/kensodev/erd-viewer/internal/server"
+	"github.com/kensodev/erd-viewer/pkg/erd/postgres"
+	"github.com/kensodev/erd-viewer/pkg/webview"
+	"github.com/kensodev/erd-viewer/web"
 )
 
 func main() {
@@ -77,7 +78,7 @@ func run(host string, port int, username, dbName, schema, excludeStr, title, lis
 
 	// Introspect schema
 	fmt.Fprintf(os.Stderr, "Introspecting schema %q...\n", schema)
-	introspector := db.NewIntrospector(conn)
+	introspector := postgres.NewIntrospector(conn)
 	schemaData, err := introspector.IntrospectSchema(ctx, schema, exclude)
 	if err != nil {
 		return fmt.Errorf("introspection failed: %w", err)
@@ -95,8 +96,12 @@ func run(host string, port int, username, dbName, schema, excludeStr, title, lis
 	}
 	schemaData.Title = title
 
-	// Start HTTP server
-	srv, err := server.New(schemaData, listenAddr)
+	// Start HTTP server with the default web view
+	srv, err := webview.New(webview.Config{
+		SchemaData: schemaData,
+		ListenAddr: listenAddr,
+		Assets:     &webview.EmbedAssets{FS: web.Files},
+	})
 	if err != nil {
 		return err
 	}
